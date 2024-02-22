@@ -9,11 +9,11 @@ const CourseInfos = ({ navigation, route }) => {
     state.courses.existingCourses.find((course) => course.id === courseId)
   );
 
-  //   useEffect(() => {
-  //     navigation.setOptions({
-  //       title: selectedCourse.title,
-  //     });
-  //   }, [navigation]);
+  useEffect(() => {
+    navigation.setOptions({
+      title: selectedCourse.title,
+    });
+  }, [navigation]);
 
   return (
     <View>
