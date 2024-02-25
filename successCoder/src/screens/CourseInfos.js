@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Colors from "../constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
-// import { TouchableOpacity } from "react-native-gesture-handler";
+import addToCart from "../redux/actions/actionAddToCart";
 
 const CourseInfos = ({ navigation, route }) => {
   const { courseId, courseTitle } = route.params;
@@ -19,6 +19,13 @@ const CourseInfos = ({ navigation, route }) => {
     state.courses.existingCourses.find((course) => course.id === courseId)
   );
 
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(selectedCourse));
+    navigation.goBack();
+    alert("Article ajouté au panier");
+  };
   useEffect(() => {
     navigation.setOptions({
       title: selectedCourse.title,
@@ -49,13 +56,15 @@ const CourseInfos = ({ navigation, route }) => {
           </View>
         </View>
         <View style={styles.footerBottom}>
-          <MaterialIcons
-            name="arrow-back-ios"
-            size={24}
-            color={Colors.white}
-            onPress={() => navigation.goBack()}
-          />
-          <TouchableOpacity onPress={() => alert("Ajouté au panier")}>
+          <View style={styles.btnGoBack}>
+            <MaterialIcons
+              name="arrow-back-ios"
+              size={24}
+              color={Colors.white}
+              onPress={() => navigation.goBack()}
+            />
+          </View>
+          <TouchableOpacity onPress={handleAddToCart}>
             <View style={styles.btnAddCart}>
               <MaterialIcons
                 name="add-shopping-cart"
@@ -103,7 +112,7 @@ const styles = StyleSheet.create({
   coursePrice: {
     fontSize: 24,
     textAlign: "right",
-    color: Colors.green,
+    color: Colors.orange,
   },
   footerBottom: {
     backgroundColor: Colors.green,
@@ -113,13 +122,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 30,
   },
-  btnAddCart: {
-    borderRadius: 6,
+  btnGoBack: {
+    borderRadius: 50,
     borderWidth: 1,
-    borderColor: Colors.white,
+    borderColor: Colors.yellow,
+    backgroundColor: Colors.redBrun,
+    paddingVertical: 6,
+    paddingLeft: 20,
+    paddingRight: 15,
+  },
+  btnAddCart: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: Colors.yellow,
     paddingVertical: 6,
     paddingHorizontal: 20,
-    color: Colors.lightOrange,
+    backgroundColor: Colors.orange,
   },
 });
 
