@@ -12,11 +12,12 @@ import Colors from "../constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Cart = () => {
+  const coursesCart = useSelector((state) => state.cart.cartCourses);
+  const total = useSelector((state) => state.cart.total);
+
   const renderCart = (id, title, price) => {
     return <CartItem id={id} title={title} price={price} />;
   };
-  const coursesCart = useSelector((state) => state.cart.cartCourses);
-  const total = useSelector((state) => state.cart.total);
 
   return (
     <View>

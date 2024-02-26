@@ -14,11 +14,14 @@ const Landing = ({ navigation }) => {
     dispatch(addToCart(course));
     alert("Article ajouté au panier");
   };
+  const courseToDisplay = existingCourses.filter(
+    (course) => course.selected === false
+  );
 
-  if (existingCourses.length) {
+  if (courseToDisplay.length) {
     return (
       <FlatList
-        data={existingCourses}
+        data={courseToDisplay}
         renderItem={({ item }) => (
           <CoursItem
             image={item.image}
