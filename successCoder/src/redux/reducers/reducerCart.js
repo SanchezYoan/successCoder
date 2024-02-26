@@ -1,5 +1,5 @@
 import PaidCourse from "../../data/PaidCourseModel";
-import { ADD_TO_CART } from "../constants";
+import { ADD_TO_CART, DELETE_TO_CART } from "../constants";
 
 const serializePaidCourse = (course) => {
   return {
@@ -19,16 +19,27 @@ const reducerCart = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       const newCourse = serializePaidCourse(action.course);
-      //   const newCourse = new PaidCourse(
-      //     action.course.id,
-      //     action.course.price,
-      //     action.course.title
-      //   );
       return {
         ...state,
         cartCourses: state.cartCourses.concat(newCourse),
         total: state.total + newCourse.price,
       };
+    case DELETE_TO_CART:
+      const indexResult = state.cartCourses.findIndex(
+        (course) => course.id === action.prodId
+      );
+
+      const newCartCourse = [...state.cartCourses];
+      newCartCourse.splice(indexResult, 1);
+
+      const coursePrice = state.cartCourses[indexResult].price;
+
+      return {
+        ...state,
+        cartCourses: newCartCourse,
+        total: state.total - coursePrice,
+      };
+
     default:
       return initialState;
   }
