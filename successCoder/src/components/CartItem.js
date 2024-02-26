@@ -4,6 +4,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
 const CartItem = ({ id, title, price }) => {
+  const handleDelete = (id) => {
+    alert("L'article à été retiré du panier");
+  };
+
   return (
     <View style={styles.cartItem}>
       <View style={styles.courseInfos}>
@@ -12,7 +16,10 @@ const CartItem = ({ id, title, price }) => {
       <View style={styles.coursePrice}>
         <Text style={styles.courseInfoText}>{price}</Text>
       </View>
-      <TouchableOpacity style={styles.cartActions}>
+      <TouchableOpacity
+        style={styles.cartActions}
+        onPress={() => handleDelete(id)}
+      >
         <MaterialIcons name="delete" size={24} color={Colors.redBrun} />
       </TouchableOpacity>
     </View>
