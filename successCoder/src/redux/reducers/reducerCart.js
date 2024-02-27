@@ -1,5 +1,4 @@
-import PaidCourse from "../../data/PaidCourseModel";
-import { ADD_TO_CART, DELETE_TO_CART } from "../constants";
+import { ADD_PAYMENT, ADD_TO_CART, DELETE_TO_CART } from "../constants";
 
 const serializePaidCourse = (course) => {
   return {
@@ -39,6 +38,9 @@ const reducerCart = (state = initialState, action) => {
         cartCourses: newCartCourse,
         total: state.total - coursePrice,
       };
+
+    case ADD_PAYMENT:
+      return initialState;
 
     default:
       return initialState;
